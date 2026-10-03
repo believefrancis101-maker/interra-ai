@@ -1,0 +1,79 @@
+// prisma/schema.prisma
+// Database schema for JobPrep AI.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  jobs      Job[]
+}
+
+model Job {
+  id           String    @id @default(uuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Job role/type: "ANALYZE" or "PREPARE"
+  type         String
+  
+  // Job lifecycle status: "PENDING" | "PROCESSING" | "DONE" | "FAILED"
+  status       String    @default("PENDING")
+  
+  // File storage key for uploaded JD (stored outside PostgreSQL, e.g. local filesystem / object storage)
+  storageKey   String?
+  
+  // Stored validated JSON output from Role 1 (Requirements) or Role 2 (Interview Questions)
+  result       Json?
+  
+  // Raw model response text from the last provider call
+  rawOutput    String?
+  
+  // AI provider ("gemini" | "deepseek") and model used
+  provider     String?
+  model        String?
+  
+  // Total model calls attempted for this job (including repair calls and 429 retries)
+  attempts     Int       @default(0)
+  
+  // Accumulated token counts across all calls reporting usage
+  inputTokens  Int?
+  outputTokens Int?
+  
+  // Measured spend in integer micro-USD (1 USD = 1,000,000 micro-USD)
+  costMicroUsd Int?
+  
+  // Error classification code when status is FAILED
+  // "TIMEOUT" | "RATE_LIMITED" | "PROVIDER_ERROR" | "INVALID_OUTPUT" | "NOT_A_JOB_DESCRIPTION" | "STALE"
+  errorCode    String?
+  
+  // Internal error message (never displayed directly to users; UI uses failureCopy)
+  errorMessage String?
+  
+  // Role 2 parent relationship: PREPARE job points to a completed ANALYZE job
+  parentJobId  String?
+  parentJob    Job?      @relation("JobHierarchy", fields: [parentJobId], references: [id], onDelete: Cascade)
+  childJobs    Job[]     @relation("JobHierarchy")
+  
+  // Timestamps
+  startedAt    DateTime?
+  finishedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Indexes:
+  // FIFO worker queue lookup: find oldest PENDING job
+  @@index([status, createdAt])
+  @@index([userId])
+  @@index([parentJobId])
+}

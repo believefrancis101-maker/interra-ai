@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobPrep AI — AI-Powered Job Description Analysis & Interview Prep</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-badge">JobPrep AI</span>
+        <span class="version-tag">Assessment 3 Slice</span>
+      </div>
+      <p class="subtitle">Reliable AI-powered job requirement extraction and targeted interview preparation.</p>
+    </header>
+
+    <!-- Progress Pipeline Stepper -->
+    <nav class="pipeline-stepper" aria-label="Processing flow">
+      <div class="step-node active" id="step-node-1">
+        <span class="step-num">1</span>
+        <span class="step-label">Upload JD</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-node" id="step-node-2">
+        <span class="step-num">2</span>
+        <span class="step-label">Background Job</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-node" id="step-node-3">
+        <span class="step-num">3</span>
+        <span class="step-label">Requirements</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-node" id="step-node-4">
+        <span class="step-num">4</span>
+        <span class="step-label">Interview Prep</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-node" id="step-node-5">
+        <span class="step-num">5</span>
+        <span class="step-label">Interview Questions</span>
+      </div>
+    </nav>
+
+    <!-- Flow Card 1: Upload Job Description -->
+    <section class="card flow-card" id="section-upload">
+      <h2>Step 1: Upload Job Description</h2>
+      <p class="section-desc">Upload a PDF, image, or text file, or paste job posting text directly.</p>
+      
+      <form id="upload-form" class="upload-form">
+        <div class="input-group">
+          <label for="jd-file">Upload Document (PDF, PNG, JPG, WebP, TXT &le; 5MB):</label>
+          <input type="file" id="jd-file" name="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt">
+        </div>
+        
+        <div class="divider"><span>OR PASTE TEXT</span></div>
+        
+        <div class="input-group">
+          <label for="jd-text">Paste Job Description Text:</label>
+          <textarea id="jd-text" name="text" rows="6" placeholder="Paste full job description text here..."></textarea>
+        </div>
+
+        <button type="submit" id="btn-submit-jd" class="btn btn-primary">
+          Analyze Job Description
+        </button>
+      </form>
+    </section>
+
+    <!-- Flow Card 2: Background Processing Status -->
+    <section class="card flow-card hidden" id="section-status">
+      <h2>Processing Status</h2>
+      <div class="status-box" id="status-box">
+        <div class="spinner" id="status-spinner"></div>
+        <div class="status-details">
+          <h3 id="status-text">Pending...</h3>
+          <p id="status-meta">Job ID: <span id="current-job-id">-</span></p>
+        </div>
+      </div>
+      <div id="failure-container" class="failure-box hidden">
+        <p id="failure-message"></p>
+        <button id="btn-retry" class="btn btn-secondary hidden">Try Again</button>
+      </div>
+    </section>
+
+    <!-- Flow Card 3: Validated Requirements Display -->
+    <section class="card flow-card hidden" id="section-requirements">
+      <div class="card-header-flex">
+        <h2>Step 2: Extracted Job Requirements</h2>
+        <span class="badge badge-success">Validated by Schema</span>
+      </div>
+      <div id="requirements-content"></div>
+      <div class="action-footer">
+        <button id="btn-prepare-interview" class="btn btn-accent">
+          Prepare for Interview &rarr;
+        </button>
+      </div>
+    </section>
+
+    <!-- Flow Card 4: Generated Interview Questions -->
+    <section class="card flow-card hidden" id="section-questions">
+      <div class="card-header-flex">
+        <h2>Step 3: Structured Interview Questions</h2>
+        <span class="badge badge-accent">Role 2 Output</span>
+      </div>
+      <p class="section-desc">Targeted questions strictly derived from the validated requirements.</p>
+      <div id="questions-content"></div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

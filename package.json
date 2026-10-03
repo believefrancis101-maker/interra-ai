@@ -1,0 +1,44 @@
+{
+  "name": "ai-integration-slice",
+  "version": "1.0.0",
+  "description": "Assessment 3: The AI Integration Slice - JobPrep AI",
+  "main": "src/app/server.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/app/server.ts",
+    "worker": "tsx src/worker/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/lib/call-model.test.ts src/worker/process-job.test.ts",
+    "test:worker": "tsx --test src/worker/process-job.test.ts",
+    "test:model": "tsx --test src/lib/call-model.test.ts",
+    "prisma:generate": "prisma generate",
+    "migrate": "prisma migrate dev"
+  },
+  "keywords": [
+    "jobprep",
+    "ai",
+    "gemini",
+    "deepseek",
+    "prisma"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^2.27.0",
+    "@prisma/client": "^6.4.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.86.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.13.9",
+    "prisma": "^6.4.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
