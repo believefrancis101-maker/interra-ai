@@ -47,7 +47,7 @@ export const analystOutput = z
   });
 export type Requirements = z.infer<typeof requirementsOk>;
 
-// ---------- Role 2: Interview Preparation Assistant ----------
+// ---------- Role 2: Mock Interview Assistant ----------
 
 // Every requirement the model is allowed to point at, taken from the VALIDATED analysis.
 export function allowedRequirements(r: Requirements): string[] {

@@ -1,5 +1,5 @@
 // prisma/schema.prisma
-// Database schema for JobPrep AI.
+// Database schema for Interra AI.
 
 generator client {
   provider = "prisma-client-js"
@@ -33,7 +33,7 @@ model Job {
   // File storage key for uploaded JD (stored outside PostgreSQL, e.g. local filesystem / object storage)
   storageKey   String?
   
-  // Stored validated JSON output from Role 1 (Requirements) or Role 2 (Interview Questions)
+  // Stored validated JSON output from Role 1 (Requirements) or Role 2 (Mock Interview Questions)
   result       Json?
   
   // Raw model response text from the last provider call

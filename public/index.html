@@ -3,115 +3,926 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JobPrep AI — AI-Powered Job Description Analysis & Interview Prep</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Interra AI — Prepare Smarter. Interview with Confidence.</title>
+  <meta name="description" content="Turn any job description into personalized mock interview questions and sample answers based on what the employer is actually looking for. No account required.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div class="app-container">
-    <header class="app-header">
-      <div class="logo">
-        <span class="logo-badge">JobPrep AI</span>
-        <span class="version-tag">Assessment 3 Slice</span>
-      </div>
-      <p class="subtitle">Reliable AI-powered job requirement extraction and targeted interview preparation.</p>
-    </header>
+<body class="landing-page-body">
 
-    <!-- Progress Pipeline Stepper -->
-    <nav class="pipeline-stepper" aria-label="Processing flow">
-      <div class="step-node active" id="step-node-1">
-        <span class="step-num">1</span>
-        <span class="step-label">Upload JD</span>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step-node" id="step-node-2">
-        <span class="step-num">2</span>
-        <span class="step-label">Background Job</span>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step-node" id="step-node-3">
-        <span class="step-num">3</span>
-        <span class="step-label">Requirements</span>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step-node" id="step-node-4">
-        <span class="step-num">4</span>
-        <span class="step-label">Interview Prep</span>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step-node" id="step-node-5">
-        <span class="step-num">5</span>
-        <span class="step-label">Interview Questions</span>
-      </div>
-    </nav>
+  <!-- ============================================== -->
+  <!-- PUBLIC NAVIGATION HEADER -->
+  <!-- ============================================== -->
+  <header class="public-nav-header" id="nav-header">
+    <div class="nav-container">
+      <!-- Left: Logo -->
+      <a href="/" class="public-brand-logo" aria-label="Interra AI Home">
+        <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="10" width="12" height="12" rx="6" fill="#38BDF8"/>
+          <rect x="10" y="4" width="12" height="12" rx="6" fill="#2563EB"/>
+          <rect x="8" y="16" width="12" height="12" rx="6" fill="#1D4ED8"/>
+        </svg>
+        <span class="brand-name">INTERRA <span class="brand-accent">AI</span></span>
+      </a>
 
-    <!-- Flow Card 1: Upload Job Description -->
-    <section class="card flow-card" id="section-upload">
-      <h2>Step 1: Upload Job Description</h2>
-      <p class="section-desc">Upload a PDF, image, or text file, or paste job posting text directly.</p>
-      
-      <form id="upload-form" class="upload-form">
-        <div class="input-group">
-          <label for="jd-file">Upload Document (PDF, PNG, JPG, WebP, TXT &le; 5MB):</label>
-          <input type="file" id="jd-file" name="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt">
+      <!-- Center: Navigation Links -->
+      <nav class="public-nav-menu" id="landing-nav-menu" aria-label="Main Public Navigation">
+        <a href="#how-it-works" class="public-nav-link">How It Works</a>
+        <a href="#features" class="public-nav-link">Features</a>
+        <a href="#faq" class="public-nav-link">FAQ</a>
+        <div class="mobile-nav-auth-buttons">
+          <a href="/dashboard" class="btn btn-secondary btn-sm">Sign In</a>
+          <a href="#tool-section" class="btn btn-primary btn-sm">Get Started</a>
         </div>
-        
-        <div class="divider"><span>OR PASTE TEXT</span></div>
-        
-        <div class="input-group">
-          <label for="jd-text">Paste Job Description Text:</label>
-          <textarea id="jd-text" name="text" rows="6" placeholder="Paste full job description text here..."></textarea>
-        </div>
+      </nav>
 
-        <button type="submit" id="btn-submit-jd" class="btn btn-primary">
-          Analyze Job Description
-        </button>
-      </form>
-    </section>
-
-    <!-- Flow Card 2: Background Processing Status -->
-    <section class="card flow-card hidden" id="section-status">
-      <h2>Processing Status</h2>
-      <div class="status-box" id="status-box">
-        <div class="spinner" id="status-spinner"></div>
-        <div class="status-details">
-          <h3 id="status-text">Pending...</h3>
-          <p id="status-meta">Job ID: <span id="current-job-id">-</span></p>
-        </div>
-      </div>
-      <div id="failure-container" class="failure-box hidden">
-        <p id="failure-message"></p>
-        <button id="btn-retry" class="btn btn-secondary hidden">Try Again</button>
-      </div>
-    </section>
-
-    <!-- Flow Card 3: Validated Requirements Display -->
-    <section class="card flow-card hidden" id="section-requirements">
-      <div class="card-header-flex">
-        <h2>Step 2: Extracted Job Requirements</h2>
-        <span class="badge badge-success">Validated by Schema</span>
-      </div>
-      <div id="requirements-content"></div>
-      <div class="action-footer">
-        <button id="btn-prepare-interview" class="btn btn-accent">
-          Prepare for Interview &rarr;
+      <!-- Right: Action Buttons -->
+      <div class="public-nav-actions">
+        <a href="/dashboard" class="public-nav-signin" id="nav-sign-in-btn">Sign In</a>
+        <a href="#tool-section" class="btn btn-primary btn-sm nav-cta-btn" id="nav-get-started-btn">Get Started</a>
+        <a href="/dashboard" class="nav-dashboard-link" title="Open authenticated dashboard">
+          <span class="dashboard-badge">Dashboard &rarr;</span>
+        </a>
+        <button type="button" class="landing-mobile-menu-btn" id="landing-mobile-toggle" aria-label="Toggle navigation menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
         </button>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- Flow Card 4: Generated Interview Questions -->
-    <section class="card flow-card hidden" id="section-questions">
-      <div class="card-header-flex">
-        <h2>Step 3: Structured Interview Questions</h2>
-        <span class="badge badge-accent">Role 2 Output</span>
+  <main>
+    <!-- ============================================== -->
+    <!-- HERO SECTION -->
+    <!-- ============================================== -->
+    <section class="landing-hero-section">
+      <div class="landing-hero-container">
+        <!-- Eyebrow Tag -->
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          AI-Powered Mock Interview Preparation
+        </div>
+
+        <!-- Headline -->
+        <h1 class="landing-hero-headline">
+          Prepare smarter.<br>
+          <span class="gradient-text">Interview with confidence.</span>
+        </h1>
+
+        <!-- Supporting Copy -->
+        <p class="landing-hero-subcopy">
+          Turn any job description into personalized mock interview questions and sample answers based on what the employer is actually looking for.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="landing-hero-cta-group">
+          <button type="button" class="btn btn-primary btn-lg" id="cta-hero-analyze">
+            <span>Analyze a Job Description</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow-icon">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg" id="cta-hero-how">
+            <span>How It Works</span>
+          </button>
+        </div>
+
+        <!-- Prominent No Account Required Message -->
+        <div class="hero-guarantee-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="check-circle-icon">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <span><strong>No account required.</strong> Try the full mock interview preparation flow right below.</span>
+        </div>
       </div>
-      <p class="section-desc">Targeted questions strictly derived from the validated requirements.</p>
-      <div id="questions-content"></div>
     </section>
-  </div>
 
-  <script src="app.js"></script>
+    <!-- ============================================== -->
+    <!-- PRIMARY PRODUCT TOOL -->
+    <!-- ============================================== -->
+    <section class="primary-tool-section" id="tool-section" aria-label="Mock Interview Preparation Tool">
+      <div class="tool-card-container">
+
+        <!-- SCREEN: Tool Input (Upload / Paste Tabs) -->
+        <div class="tool-screen" id="tool-screen-input">
+          <div class="tool-tabs-header" role="tablist">
+            <button type="button" class="tool-tab active" id="tab-btn-upload" role="tab" aria-selected="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tab-icon">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <span>Upload File</span>
+            </button>
+            <button type="button" class="tool-tab" id="tab-btn-paste" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tab-icon">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              </svg>
+              <span>Paste Text</span>
+            </button>
+          </div>
+
+          <!-- Option 1: File Upload Tab Content -->
+          <div class="tab-pane active" id="tab-content-upload">
+            <div class="landing-dropzone" id="landing-dropzone" tabindex="0" role="button" aria-label="Drop your job description here">
+              <div class="dropzone-illustration">
+                <div class="dropzone-icon-ring">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="dropzone-cloud">
+                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                    <polyline points="12 13 12 8"/>
+                    <polyline points="9.5 10.5 12 8 14.5 10.5"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="dropzone-title">Drop your job description here</h3>
+              <p class="dropzone-subtitle">or <button type="button" class="browse-link-btn" id="landing-browse-btn">choose a file from your device</button></p>
+              <div class="dropzone-meta-pill">
+                Supports PDF, TXT, PNG, JPG, WEBP &bull; Max 10MB
+              </div>
+
+              <!-- Selected File Indicator -->
+              <div class="landing-file-badge hidden" id="landing-selected-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="badge-file-icon">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                <span id="landing-selected-name" class="file-name-text">filename.pdf</span>
+                <button type="button" id="landing-clear-file-btn" class="clear-file-btn" aria-label="Remove selected file">&times;</button>
+              </div>
+
+              <input type="file" id="landing-file-input" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt" class="visually-hidden">
+            </div>
+          </div>
+
+          <!-- Option 2: Paste Text Tab Content -->
+          <div class="tab-pane hidden" id="tab-content-paste">
+            <div class="paste-input-container">
+              <textarea id="landing-paste-text" class="landing-textarea" rows="7" placeholder="Paste the full job description here (title, requirements, responsibilities, etc.)... minimum 20 characters." aria-label="Paste job description text"></textarea>
+              <div class="paste-char-footer">
+                <span class="char-counter"><span id="landing-paste-count">0</span> characters (min 20)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Primary Submit Row -->
+          <div class="tool-action-bar">
+            <button type="button" class="btn btn-primary btn-lg tool-submit-btn" id="landing-btn-analyze">
+              <span>Analyze Job Description</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow-icon">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+            <p class="tool-subtext">No registration needed &bull; Immediate role extraction &bull; Verified AI output</p>
+          </div>
+        </div>
+
+        <!-- SCREEN: Processing State -->
+        <div class="tool-screen hidden" id="tool-screen-processing" aria-live="polite">
+          <div class="tool-processing-box">
+            <div class="processing-spinner-bubble">
+              <div class="pulse-ring"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="processing-icon">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+            </div>
+            <h2 class="tool-processing-heading" id="tool-processing-title">Analyzing your job description...</h2>
+            <p class="tool-processing-copy" id="tool-processing-subtitle">
+              Interra AI is identifying the important skills, qualifications, experience and responsibilities.
+            </p>
+
+            <ul class="tool-checklist" role="list">
+              <li class="tool-check-item completed">
+                <span class="check-bullet">&#10003;</span>
+                <span id="tool-step-1">Job description uploaded</span>
+              </li>
+              <li class="tool-check-item active">
+                <span class="check-spinner"></span>
+                <span id="tool-step-2">Extracting role requirements</span>
+              </li>
+              <li class="tool-check-item pending">
+                <span class="check-bullet">&bull;</span>
+                <span id="tool-step-3">Validating skills &amp; responsibilities</span>
+              </li>
+              <li class="tool-check-item pending">
+                <span class="check-bullet">&bull;</span>
+                <span id="tool-step-4">Structuring interview focus areas</span>
+              </li>
+            </ul>
+
+            <div class="tool-progress-meter">
+              <div class="tool-progress-bar"></div>
+            </div>
+            <span id="tool-job-id" class="visually-hidden">-</span>
+          </div>
+        </div>
+
+        <!-- SCREEN: Validated Job Requirements Display -->
+        <div class="tool-screen hidden" id="tool-screen-analysis">
+          <div class="tool-analysis-wrapper">
+            <div class="tool-analysis-header">
+              <div class="analysis-status-pill">
+                <span class="status-dot"></span> Validated Requirements
+              </div>
+              <h2 class="analysis-role-title" id="landing-role-title">Role Title</h2>
+              <p class="analysis-company-name" id="landing-role-company">Company</p>
+              <div class="role-meta-tags">
+                <span class="meta-tag" id="landing-badge-employment">Full-Time</span>
+                <span class="meta-tag" id="landing-badge-location">Location</span>
+              </div>
+            </div>
+
+            <!-- Skills block -->
+            <div class="analysis-card-group">
+              <h3 class="analysis-subheading">Key Skills Identified</h3>
+              <div class="skills-wrapper">
+                <div class="skills-subblock">
+                  <span class="skills-label">Required Skills:</span>
+                  <div class="skills-tag-cloud" id="landing-required-skills"></div>
+                </div>
+                <div class="skills-subblock" id="landing-preferred-group" style="display: none;">
+                  <span class="skills-label">Preferred Skills:</span>
+                  <div class="skills-tag-cloud" id="landing-preferred-skills"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Two-column: Responsibilities & Qualifications -->
+            <div class="analysis-grid-row">
+              <div class="analysis-box">
+                <h3 class="analysis-subheading">Core Responsibilities</h3>
+                <ul class="analysis-bullet-list" id="landing-responsibilities"></ul>
+              </div>
+              <div class="analysis-box">
+                <h3 class="analysis-subheading">Experience &amp; Qualifications</h3>
+                <ul class="analysis-bullet-list" id="landing-experience-quals"></ul>
+              </div>
+            </div>
+
+            <!-- Step 4 CTA: Generate Mock Interview -->
+            <div class="analysis-bottom-cta">
+              <div class="bottom-cta-copy">
+                <h3>Ready to practice?</h3>
+                <p>Generate targeted mock interview questions and structured sample answers directly from these validated requirements.</p>
+              </div>
+              <div class="bottom-cta-buttons">
+                <button type="button" class="btn btn-secondary" id="landing-btn-reset-analysis">Upload Another Role</button>
+                <button type="button" class="btn btn-primary btn-lg" id="landing-btn-prepare">
+                  <span>Generate Mock Interview</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow-icon">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN: Mock Interview Questions & Sample Answers -->
+        <div class="tool-screen hidden" id="tool-screen-questions">
+          <div class="tool-questions-wrapper">
+            <div class="questions-header-bar">
+              <div>
+                <span class="badge badge-accent" id="landing-prep-badge">Senior Role</span>
+                <h2 class="questions-main-heading">Mock Interview Questions</h2>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="landing-btn-restart">Start New Preparation</button>
+            </div>
+            <p class="questions-subcopy">These questions are derived strictly from the validated requirements of your role.</p>
+
+            <!-- Category Pills -->
+            <div class="landing-category-tabs" role="tablist">
+              <button type="button" class="landing-cat-pill active" data-cat="all">All Questions</button>
+              <button type="button" class="landing-cat-pill" data-cat="technical">Technical</button>
+              <button type="button" class="landing-cat-pill" data-cat="behavioural">Behavioural</button>
+              <button type="button" class="landing-cat-pill" data-cat="role_specific">Role Specific</button>
+            </div>
+
+            <!-- Injected Question Card -->
+            <div class="landing-question-card-container" id="landing-question-card">
+              <!-- Dynamically rendered by landing.js -->
+            </div>
+
+            <!-- Nav Controls -->
+            <div class="tool-question-nav">
+              <button type="button" class="btn btn-secondary" id="landing-btn-prev-q" disabled>
+                &larr; Previous
+              </button>
+              <div class="tool-question-counter-wrap">
+                <span id="landing-q-nav-counter">Question 1 of 5</span>
+                <div class="tool-q-dots" id="landing-q-dots"></div>
+              </div>
+              <button type="button" class="btn btn-primary" id="landing-btn-next-q">
+                Next Question &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN: Failure State -->
+        <div class="tool-screen hidden" id="tool-screen-failure">
+          <div class="tool-failure-box">
+            <div class="failure-icon-container">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <h2 class="failure-headline" id="tool-failure-title">We couldn't analyze this file</h2>
+            <p class="failure-description" id="tool-failure-subtitle">
+              The AI service couldn't produce a reliable result for this file. This might happen if the file is unclear or not a job description.
+            </p>
+            <div class="failure-btn-row">
+              <button type="button" class="btn btn-primary" id="tool-btn-retry">Try Again</button>
+              <button type="button" class="btn btn-secondary" id="tool-btn-upload-another">Upload Another File</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- WHAT INTERRA AI DOES (3 CARDS) -->
+    <!-- ============================================== -->
+    <section class="section-marketing" id="features">
+      <div class="section-container">
+        <div class="section-header-centered">
+          <span class="section-kicker">Comprehensive Preparation</span>
+          <h2 class="section-title">Everything you need to prepare from the job description.</h2>
+          <p class="section-desc">Stop practicing generic questions. Interra AI connects every mock interview question and sample answer directly to what the employer is asking for.</p>
+        </div>
+
+        <div class="three-cards-grid">
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <div class="feature-card-icon blue-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Understand the Role</h3>
+            <p class="feature-card-highlight">See what the employer is really looking for.</p>
+            <p class="feature-card-text">
+              Interra AI identifies important skills, qualifications, experience and responsibilities from the job description.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <div class="feature-card-icon indigo-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Practice Relevant Questions</h3>
+            <p class="feature-card-highlight">Prepare for questions that match the role.</p>
+            <p class="feature-card-text">
+              Generate mock interview questions based on the validated requirements of the specific job.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="feature-card">
+            <div class="feature-card-icon emerald-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Learn From Sample Answers</h3>
+            <p class="feature-card-highlight">See how strong responses can be structured.</p>
+            <p class="feature-card-text">
+              Get sample answers that demonstrate how you could approach relevant mock interview questions.
+            </p>
+            <div class="card-guidance-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <span>Use sample answers as guidance and adapt them to your own experience.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- EDUCATIONAL SECTION (VISUAL PIPELINE + CONTENT) -->
+    <!-- ============================================== -->
+    <section class="section-educational">
+      <div class="section-container">
+        <div class="educational-split-layout">
+          <!-- Educational Content (Left) -->
+          <div class="educational-copy-block">
+            <span class="section-kicker">The Strategy</span>
+            <h2 class="educational-heading">Your job description already contains clues.</h2>
+            <p class="educational-body">
+              Skills, responsibilities, qualifications and experience requirements can tell you a lot about what an employer may want to discuss during an interview.
+            </p>
+            <div class="educational-highlight-box">
+              <p class="educational-highlight-text">
+                Interra AI helps turn those clues into focused mock interview preparation.
+              </p>
+            </div>
+            <p class="educational-body-secondary">
+              Rather than guessing which questions might come up or studying generic interview guides, you practice with questions grounded strictly in the validated demands of the posting.
+            </p>
+          </div>
+
+          <!-- Product Workflow Visual (Right) -->
+          <div class="educational-visual-block" aria-label="Visual Product Pipeline">
+            <div class="pipeline-flow-card">
+              <div class="flow-card-header">
+                <span class="flow-header-dot"></span>
+                <span>Interra AI Preparation Architecture</span>
+              </div>
+
+              <!-- Pipeline Step 1 -->
+              <div class="flow-step-box">
+                <div class="flow-step-icon doc-color">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                </div>
+                <div class="flow-step-details">
+                  <span class="flow-step-label">Input</span>
+                  <h4 class="flow-step-name">Job Description</h4>
+                  <p class="flow-step-desc">Pasted text, PDF, or image posting</p>
+                </div>
+              </div>
+
+              <div class="flow-down-arrow">&darr;</div>
+
+              <!-- Pipeline Step 2 -->
+              <div class="flow-step-box">
+                <div class="flow-step-icon analyze-color">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                </div>
+                <div class="flow-step-details">
+                  <span class="flow-step-label">Role 1: Analyst</span>
+                  <h4 class="flow-step-name">Validated Requirements</h4>
+                  <p class="flow-step-desc">Skills, experience, responsibilities, qualifications</p>
+                </div>
+              </div>
+
+              <div class="flow-down-arrow">&darr;</div>
+
+              <!-- Pipeline Step 3 -->
+              <div class="flow-step-box">
+                <div class="flow-step-icon prep-color">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                  </svg>
+                </div>
+                <div class="flow-step-details">
+                  <span class="flow-step-label">Role 2: Preparation</span>
+                  <h4 class="flow-step-name">Mock Interview Questions</h4>
+                  <p class="flow-step-desc">Strictly mapped to extracted requirements</p>
+                </div>
+              </div>
+
+              <div class="flow-down-arrow">&darr;</div>
+
+              <!-- Pipeline Step 4 -->
+              <div class="flow-step-box">
+                <div class="flow-step-icon answer-color">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                  </svg>
+                </div>
+                <div class="flow-step-details">
+                  <span class="flow-step-label">Outcome</span>
+                  <h4 class="flow-step-name">Sample Answers &amp; Guidance</h4>
+                  <p class="flow-step-desc">Structured frameworks for your own responses</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- HOW IT WORKS (4 SIMPLE STEPS) -->
+    <!-- ============================================== -->
+    <section class="section-how-it-works" id="how-it-works">
+      <div class="section-container">
+        <div class="section-header-centered">
+          <span class="section-kicker">Simple Process</span>
+          <h2 class="section-title">Prepare in four simple steps.</h2>
+          <p class="section-desc">Go from a raw job description to personalized, structured mock interview preparation in seconds.</p>
+        </div>
+
+        <div class="four-steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <span class="step-number">01</span>
+            <div class="step-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Upload</h3>
+            <p class="step-text">Upload your job description or paste the text.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card">
+            <span class="step-number">02</span>
+            <div class="step-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Analyze</h3>
+            <p class="step-text">Interra AI identifies the important requirements.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <span class="step-number">03</span>
+            <div class="step-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="9" y1="15" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Practice</h3>
+            <p class="step-text">Get mock interview questions based on the role.</p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-card">
+            <span class="step-number">04</span>
+            <div class="step-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11l3 3L22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Prepare</h3>
+            <p class="step-text">Use sample answers to guide your preparation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- SAMPLE OUTPUT SECTION (REALISTIC UI MOCKUP) -->
+    <!-- ============================================== -->
+    <section class="section-sample-output">
+      <div class="section-container">
+        <div class="section-header-centered">
+          <span class="section-kicker">Product Preview</span>
+          <h2 class="section-title">See what your preparation looks like.</h2>
+          <p class="section-desc">Sample answers and rationale provide concrete benchmarks for framing your own past experiences.</p>
+        </div>
+
+        <div class="mockup-showcase-container">
+          <div class="mockup-card">
+            <!-- Mockup Card Top Bar -->
+            <div class="mockup-top-bar">
+              <div class="mockup-meta-group">
+                <span class="mockup-sample-badge">Sample Preview</span>
+                <span class="mockup-cat-label">Technical Question</span>
+              </div>
+              <span class="badge badge-accent">Node.js API Development</span>
+            </div>
+
+            <!-- Question Heading -->
+            <h3 class="mockup-question-title">
+              Tell me about your experience building APIs with Node.js.
+            </h3>
+
+            <!-- Why this question? -->
+            <div class="mockup-why-box">
+              <div class="why-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="why-icon">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="16" x2="12" y2="12"/>
+                  <line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+                <span class="why-title">Why this question?</span>
+              </div>
+              <p class="why-text">
+                The job description requires experience with Node.js and API development.
+              </p>
+            </div>
+
+            <!-- Sample Answer Box -->
+            <div class="mockup-sample-answer-box">
+              <div class="sample-box-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sample-icon">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                <span class="sample-box-title">Sample Answer</span>
+              </div>
+              <p class="sample-box-text">
+                "In my recent role, I designed and maintained RESTful microservices using Node.js and Express. I focused on clean modular architecture, input validation, structured error handling, and writing comprehensive test suites. For instance, when optimizing a data ingestion service, I implemented streaming pipelines and query batching which reduced response latency by 35%."
+              </p>
+            </div>
+
+            <!-- Guidance Note -->
+            <div class="mockup-guidance-footer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+              <span>Don't memorize the answer. Use it as a guide and adapt it to your own experience.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- WHY INTERRA AI (BENEFITS) -->
+    <!-- ============================================== -->
+    <section class="section-benefits">
+      <div class="section-container">
+        <div class="section-header-centered">
+          <span class="section-kicker">Targeted Advantage</span>
+          <h2 class="section-title">Why Interra AI</h2>
+          <p class="section-desc">Designed to give candidates high-conviction, role-aligned readiness.</p>
+        </div>
+
+        <div class="benefits-grid">
+          <!-- Benefit 1 -->
+          <div class="benefit-item">
+            <div class="benefit-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="benefit-name">Role-specific</h3>
+            <p class="benefit-desc">Prepare based on the job description instead of generic mock interview questions.</p>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="benefit-item">
+            <div class="benefit-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="22" y1="12" x2="18" y2="12"/>
+                <line x1="6" y1="12" x2="2" y2="12"/>
+                <line x1="12" y1="6" x2="12" y2="2"/>
+                <line x1="12" y1="22" x2="12" y2="18"/>
+              </svg>
+            </div>
+            <h3 class="benefit-name">Focused</h3>
+            <p class="benefit-desc">Know which skills and requirements deserve your attention.</p>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="benefit-item">
+            <div class="benefit-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3 class="benefit-name">Practical</h3>
+            <p class="benefit-desc">Practice questions that are relevant to the role.</p>
+          </div>
+
+          <!-- Benefit 4 -->
+          <div class="benefit-item">
+            <div class="benefit-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <h3 class="benefit-name">Guided</h3>
+            <p class="benefit-desc">Use sample answers to understand how strong responses can be structured.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- OPTIONAL ACCOUNT / FUTURE PREMIUM MESSAGE -->
+    <!-- ============================================== -->
+    <section class="section-account-callout">
+      <div class="section-container">
+        <div class="account-callout-card">
+          <div class="account-callout-copy">
+            <span class="account-eyebrow">Account Option</span>
+            <h3 class="account-title">Want more from your preparation?</h3>
+            <p class="account-text">
+              Create an Interra AI account to keep your preparation organized and access future premium features.
+            </p>
+          </div>
+          <div class="account-callout-action">
+            <a href="/dashboard" class="btn btn-primary btn-lg">Create Free Account</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- FAQ ACCORDION -->
+    <!-- ============================================== -->
+    <section class="section-faq" id="faq">
+      <div class="section-container">
+        <div class="section-header-centered">
+          <span class="section-kicker">Got Questions?</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-desc">Everything you need to know about preparing with Interra AI.</p>
+        </div>
+
+        <div class="faq-accordion-list" role="region" aria-label="Frequently Asked Questions">
+          <!-- Question 1 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="faq-question">What is Interra AI?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p>Interra AI helps users turn job descriptions into focused mock interview preparation, including relevant mock interview questions and sample answers.</p>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="faq-question">Do I need an account?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p>No. You can use the core Interra AI preparation flow without creating an account.</p>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="faq-question">Can I upload a job description?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p>Yes. Use the file formats supported by the existing application, including PDF, PNG, JPG, and TXT files up to 10MB.</p>
+            </div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="faq-question">Can I paste a job description?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p>Yes. You can switch to the "Paste Text" tab and enter the job description directly (minimum 20 characters).</p>
+            </div>
+          </div>
+
+          <!-- Question 5 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="faq-question">How does Interra AI generate mock interview questions?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p>Questions are generated from the validated requirements extracted from the job description.</p>
+            </div>
+          </div>
+
+          <!-- Question 6 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="faq-question">Does Interra AI provide sample answers?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p>Yes, where supported by the mock interview preparation result.</p>
+            </div>
+          </div>
+
+          <!-- Question 7 -->
+          <div class="faq-item">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="faq-question">Should I memorize the sample answers?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="faq-content">
+              <p>No. Sample answers are examples to help you understand how to structure your own responses.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- FINAL CTA SECTION -->
+    <!-- ============================================== -->
+    <section class="section-final-cta">
+      <div class="section-container">
+        <div class="final-cta-card">
+          <h2 class="final-cta-heading">Your next interview starts with the job description.</h2>
+          <p class="final-cta-subtext">
+            Upload the role you're preparing for and turn it into focused mock interview preparation.
+          </p>
+          <div class="final-cta-action-wrap">
+            <button type="button" class="btn btn-primary btn-lg" id="cta-final-start">
+              <span>Start Preparing</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow-icon">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+          <p class="final-cta-guarantee">No account required.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================== -->
+  <!-- PUBLIC FOOTER -->
+  <!-- ============================================== -->
+  <footer class="public-footer">
+    <div class="section-container footer-layout">
+      <div class="footer-brand-col">
+        <a href="/" class="public-brand-logo">
+          <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="10" width="12" height="12" rx="6" fill="#38BDF8"/>
+            <rect x="10" y="4" width="12" height="12" rx="6" fill="#2563EB"/>
+            <rect x="8" y="16" width="12" height="12" rx="6" fill="#1D4ED8"/>
+          </svg>
+          <span class="brand-name">INTERRA <span class="brand-accent">AI</span></span>
+        </a>
+        <p class="footer-tagline">Understand the role. Prepare for the interview.</p>
+      </div>
+
+      <div class="footer-links-col">
+        <div class="footer-nav-group">
+          <h4>Navigation</h4>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <div class="footer-nav-group">
+          <h4>Product</h4>
+          <a href="#tool-section">Analyze a Role</a>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/dashboard">Sign In</a>
+        </div>
+
+        <div class="footer-nav-group">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <p>&copy; 2026 Interra AI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="landing.js"></script>
 </body>
 </html>

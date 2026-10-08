@@ -1,5 +1,5 @@
 // src/worker/index.ts
-// Background worker queue processor for JobPrep AI.
+// Background worker queue processor for Interra AI.
 // Follows the FIFO lifecycle: PENDING -> PROCESSING -> DONE / FAILED.
 // Enforces concurrency limits from config and runs the stale job sweeper.
 import { config } from "../config";
@@ -28,7 +28,7 @@ export class WorkerQueue {
   start(): void {
     if (this.isRunning) return;
     this.isRunning = true;
-    console.log(`[Worker] Started JobPrep AI Worker (concurrency: ${config.worker.concurrency})`);
+    console.log(`[Worker] Started Interra AI Worker (concurrency: ${config.worker.concurrency})`);
 
     this.scheduleNextPoll(0);
     this.startStaleSweeper();
@@ -226,7 +226,7 @@ export class WorkerQueue {
     const prepSchema = makePrepOutput(requirements);
 
     const systemPrompt =
-      "You are an expert Interview Preparation Assistant. Generate structured interview preparation questions\n" +
+      "You are an expert Mock Interview Preparation Assistant. Generate structured mock interview questions\n" +
       "based ONLY on the extracted job requirements provided. You must strictly reference requirements directly\n" +
       "from the provided requirements list in relatedRequirement.";
 
@@ -240,7 +240,7 @@ export class WorkerQueue {
     const messages: Msg[] = [
       {
         role: "user",
-        content: `Generate interview preparation questions for this role based on the following requirements:\n${JSON.stringify(requirements)}`,
+        content: `Generate mock interview questions for this role based on the following requirements:\n${JSON.stringify(requirements)}`,
       },
     ];
 

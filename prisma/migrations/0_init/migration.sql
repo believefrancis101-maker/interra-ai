@@ -1,4 +1,4 @@
--- Initial migration for JobPrep AI database schema
+-- Initial migration for Interra AI database schema
 
 -- CreateTable User
 CREATE TABLE IF NOT EXISTS "User" (

@@ -1,5 +1,5 @@
 // src/api/jobs.ts
-// Job management API routes for JobPrep AI.
+// Job management API routes for Interra AI.
 // Handles uploading JDs, triggering interview prep, polling status, and retries.
 import { Router, type Request, type Response } from "express";
 import multer from "multer";
@@ -86,7 +86,7 @@ jobsRouter.post(
 
 /**
  * 2. POST /api/jobs/prepare
- * Triggers Role 2 interview question generation from a completed ANALYZE job.
+ * Triggers Role 2 mock interview question generation from a completed ANALYZE job.
  * Enforces: at most one live PREPARE job per parent.
  */
 jobsRouter.post(
@@ -114,7 +114,7 @@ jobsRouter.post(
       if (parentJob.status !== "DONE" || !parentJob.result) {
         res.status(400).json({
           error: "INVALID_STATE",
-          message: "Parent job must be in DONE status before preparing interview questions.",
+          message: "Parent job must be in DONE status before generating mock interview questions.",
         });
         return;
       }
@@ -131,7 +131,7 @@ jobsRouter.post(
       if (liveChild) {
         res.status(409).json({
           error: "ALREADY_PREPARING",
-          message: "An interview prep job is already in progress for this job description.",
+          message: "A mock interview job is already in progress for this job description.",
           jobId: liveChild.id,
         });
         return;

@@ -1,5 +1,5 @@
 // src/config.ts
-// Centralized configuration for JobPrep AI.
+// Centralized configuration for Interra AI.
 // All changeable values (models, providers, timeouts, token caps, temperature,
 // retry limits, rate limits, concurrency, upload limits, pricing) are defined here.
 
@@ -14,7 +14,7 @@ export const config = {
       maxOutputTokens: 4096,
       timeoutMs: 40_000,
     },
-    // Role 2: Interview Preparation Assistant (DeepSeek via OpenAI SDK pointed at DeepSeek base URL)
+    // Role 2: Mock Interview Assistant (DeepSeek via OpenAI SDK pointed at DeepSeek base URL)
     prep: {
       provider: "deepseek" as const,
       model: "deepseek-chat",
@@ -81,10 +81,10 @@ export const config = {
     maxRequests: 10,     // Max requests per window per user
   },
 
-  // Demo user settings (assessment uses single seeded demo user)
+  // Demo user settings (development mode uses a seeded demo user)
   demoUser: {
     id: "demo-user-1",
-    email: "demo@jobprep.ai",
+    email: "demo@interra.ai",
     name: "Demo Candidate",
   },
 

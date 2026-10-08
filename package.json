@@ -1,44 +1,37 @@
 {
-  "name": "ai-integration-slice",
+  "name": "interra-ai",
   "version": "1.0.0",
-  "description": "Assessment 3: The AI Integration Slice - JobPrep AI",
-  "main": "src/app/server.ts",
+  "description": "Interra AI — AI-Powered Job Description Analysis & Interview Prep",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/app/server.ts",
-    "worker": "tsx src/worker/index.ts",
-    "build": "tsc",
-    "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/call-model.test.ts src/worker/process-job.test.ts",
-    "test:worker": "tsx --test src/worker/process-job.test.ts",
-    "test:model": "tsx --test src/lib/call-model.test.ts",
-    "prisma:generate": "prisma generate",
-    "migrate": "prisma migrate dev"
+    "worker": "tsx watch src/worker/index.ts",
+    "start": "tsx src/app/server.ts",
+    "build": "tsc --noEmit",
+    "test": "tsx --test src/lib/call-model.test.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   },
-  "keywords": [
-    "jobprep",
-    "ai",
-    "gemini",
-    "deepseek",
-    "prisma"
-  ],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@google/genai": "^2.27.0",
-    "@prisma/client": "^6.4.1",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "multer": "^1.4.5-lts.1",
-    "openai": "^4.86.1",
+    "@prisma/client": "^6.19.3",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
+    "multer": "^1.4.5-lts.2",
+    "openai": "^4.104.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
-    "@types/multer": "^1.4.12",
-    "@types/node": "^22.13.9",
-    "prisma": "^6.4.1",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "@types/express": "^5.0.6",
+    "@types/multer": "^1.4.13",
+    "@types/node": "^22.20.5",
+    "prisma": "^6.19.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

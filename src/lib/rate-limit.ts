@@ -1,6 +1,6 @@
 // src/lib/rate-limit.ts
 // Rate limiter as cost control (sliding window).
-// Applied to job creation, interview prep trigger, and retry action.
+// Applied to job creation, mock interview trigger, and retry action.
 import { config } from "../config";
 import type { Request, Response, NextFunction } from "express";
 

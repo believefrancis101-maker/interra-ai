@@ -1,5 +1,5 @@
 // src/app/server.ts
-// Express web server for JobPrep AI.
+// Express web server for Interra AI.
 // Serves API endpoints and static web application assets.
 import "dotenv/config";
 import express from "express";
@@ -24,13 +24,18 @@ app.use("/api/jobs", jobsRouter);
 app.get("/api/health", (_req, res) => {
   res.json({
     status: "ok",
-    product: "JobPrep AI",
+    product: "Interra AI",
     environment: config.server.env,
     roles: {
       analyst: { provider: config.roles.analyst.provider, model: config.roles.analyst.model },
       prep: { provider: config.roles.prep.provider, model: config.roles.prep.model },
     },
   });
+});
+
+// Dashboard route for authenticated experience
+app.get("/dashboard", (_req, res) => {
+  res.sendFile(path.join(publicDir, "dashboard.html"));
 });
 
 // Fallback to index.html for client-side navigation
@@ -40,7 +45,7 @@ app.get("*", (_req, res) => {
 
 const PORT = config.server.port;
 app.listen(PORT, () => {
-  console.log(`[App] JobPrep AI server listening at http://localhost:${PORT}`);
+  console.log(`[App] Interra AI server listening at http://localhost:${PORT}`);
 });
 
 export default app;

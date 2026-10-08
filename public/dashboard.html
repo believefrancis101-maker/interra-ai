@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interra AI — AI-Powered Job Description Analysis & Mock Interview Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="layout-container">
+    <!-- Left Sidebar -->
+    <aside class="sidebar" id="app-sidebar" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <a href="/" class="brand-logo" id="nav-brand" aria-label="Interra AI Home">
+          <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="10" width="12" height="12" rx="6" fill="#38BDF8"/>
+            <rect x="10" y="4" width="12" height="12" rx="6" fill="#2563EB"/>
+            <rect x="8" y="16" width="12" height="12" rx="6" fill="#1D4ED8"/>
+          </svg>
+          <span class="brand-name">INTERRA <span class="brand-accent">AI</span></span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="nav-item active" id="nav-item-home" data-view="landing">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Home</span>
+        </button>
+        <button type="button" class="nav-item" id="nav-item-history" data-view="history">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="3"/>
+            <circle cx="9" cy="10" r="2"/>
+            <line x1="15" y1="9" x2="17" y2="9"/>
+            <line x1="15" y1="13" x2="17" y2="13"/>
+            <line x1="7" y1="16" x2="17" y2="16"/>
+          </svg>
+          <span>My Interviews</span>
+          <span class="nav-badge" id="history-count" style="display: none;">0</span>
+        </button>
+        <button type="button" class="nav-item" id="nav-item-settings" data-view="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-quote">
+          <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/>
+            <path d="M18 10a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0v-1a4 4 0 0 1 4-4z"/>
+            <circle cx="8" cy="18" r="3"/>
+          </svg>
+          <div>
+            <p class="quote-line-1">Better preparation.</p>
+            <p class="quote-line-2">Bigger opportunities.</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper" id="main-content">
+      <!-- Top Navigation Header -->
+      <header class="top-header">
+        <div class="mobile-nav-toggle-wrap">
+          <button type="button" class="btn-icon mobile-menu-btn" id="btn-mobile-menu" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <span class="mobile-brand-title">Interra AI</span>
+        </div>
+
+        <div class="header-breadcrumbs" id="header-breadcrumbs">
+          <a href="/" style="color: var(--text-muted); font-size: 0.85rem; text-decoration: none; margin-right: 0.5rem;">&larr; Public Home</a>
+        </div>
+
+        <div class="user-profile-badge">
+          <div class="avatar-circle" id="user-avatar" title="VOICER Admin">VA</div>
+          <span class="user-display-name">VOICER Admin</span>
+          <svg class="dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <div class="views-wrapper">
+
+        <!-- ============================================== -->
+        <!-- SCREEN 1: LANDING & UPLOAD SCREEN -->
+        <!-- ============================================== -->
+        <section class="view-screen active" id="screen-landing" aria-labelledby="hero-title">
+          <div class="hero-split-grid">
+            <!-- Left Copy & Upload Column -->
+            <div class="hero-copy-column">
+              <!-- Eyebrow Label -->
+              <div class="hero-eyebrow">
+                <span class="hero-eyebrow-dot"></span>
+                AI-Powered Mock Interview Preparation
+              </div>
+              <h1 class="hero-title" id="hero-title">
+                Turn any job description<br>
+                into <span class="highlight-blue">mock interview preparation.</span>
+              </h1>
+              <p class="hero-subtitle">
+                Upload a job description and Interra AI will identify what the employer is looking for and prepare you for it &mdash; with tailored questions, sample answers and key insights.
+              </p>
+
+              <!-- Upload Container -->
+              <form id="form-analyze" class="analyze-form">
+                <!-- Dropzone Box exactly as shown in screenshot -->
+                <div class="dropzone-box" id="dropzone" tabindex="0" role="button" aria-label="Upload job description file">
+                  <div class="dropzone-cloud-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                      <polyline points="12 13 12 8"/>
+                      <polyline points="9.5 10.5 12 8 14.5 10.5"/>
+                    </svg>
+                  </div>
+
+                  <h3 class="dropzone-heading">Upload Job Description</h3>
+                  <p class="dropzone-instructions">
+                    Drag &amp; drop your file here, or <span class="browse-link">click to browse</span>
+                  </p>
+                  <p class="dropzone-filetypes">PDF, PNG, JPG, TXT (Max 10MB)</p>
+                  
+                  <button type="button" class="btn btn-primary dropzone-choose-btn" id="btn-choose-file">
+                    Choose File
+                  </button>
+
+                  <!-- Selected File Tag (Shown when file is selected) -->
+                  <div class="selected-file-badge hidden" id="selected-file-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="file-badge-icon">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span id="selected-file-name" class="file-badge-text"></span>
+                    <button type="button" id="btn-clear-file" class="btn-clear-file" aria-label="Remove selected file">&times;</button>
+                  </div>
+
+                  <input type="file" id="input-jd-file" name="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt" class="visually-hidden">
+                </div>
+
+                <!-- Submit Button (appears or activates when file or text is ready) -->
+                <div class="form-action-row hidden" id="action-submit-row">
+                  <button type="submit" id="btn-submit-analyze" class="btn btn-primary btn-lg">
+                    <span class="btn-text">Analyze Job Description</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow-icon">
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                      <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Subtle switch to paste text mode -->
+                <div class="paste-toggle-row">
+                  <button type="button" class="btn-toggle-paste" id="btn-toggle-paste">
+                    or paste job description text
+                  </button>
+                </div>
+
+                <!-- Paste Text Panel (Toggled via button) -->
+                <div class="paste-panel hidden" id="panel-text-paste">
+                  <div class="textarea-wrapper">
+                    <textarea id="input-jd-text" name="text" rows="5" class="textarea-paste" placeholder="Paste the job description text here... (minimum 20 characters)" aria-label="Paste job description text"></textarea>
+                    <div class="paste-panel-footer">
+                      <span class="textarea-char-count"><span id="char-count">0</span> characters</span>
+                      <button type="submit" id="btn-submit-paste" class="btn btn-primary btn-sm">
+                        Analyze Text
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right Graphic Illustration Column -->
+            <div class="hero-illustration-column" aria-hidden="true">
+              <div class="graphic-ambient-glow"></div>
+              <div class="graphic-card-showcase">
+                <!-- 4-point Sparkle Star -->
+                <div class="sparkle-star sparkle-top-right">
+                  <svg viewBox="0 0 24 24" fill="#1D68FE">
+                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                  </svg>
+                </div>
+
+                <!-- Floating Job Description Document Card -->
+                <div class="preview-document-card">
+                  <div class="doc-header">
+                    <div class="doc-header-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                      </svg>
+                    </div>
+                    <div class="doc-header-text">
+                      <h3 class="doc-title-text">Job Description</h3>
+                      <p class="doc-company">Senior Product Designer</p>
+                    </div>
+                  </div>
+                  <div class="doc-skeleton-lines">
+                    <div class="skeleton-line line-1"></div>
+                    <div class="skeleton-line line-2"></div>
+                    <div class="skeleton-line line-3"></div>
+                    <div class="skeleton-line line-4"></div>
+                  </div>
+
+                  <!-- 4 Floating Overlapping Pills matching the mockup -->
+                  <div class="doc-overlapping-pills">
+                    <!-- 1. Skills -->
+                    <div class="floating-pill pill-skills">
+                      <svg class="pill-svg green-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                      <span class="pill-text green-text">Skills</span>
+                    </div>
+
+                    <!-- 2. Experience -->
+                    <div class="floating-pill pill-experience">
+                      <svg class="pill-svg green-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <polyline points="9 12 11 14 15 10"/>
+                      </svg>
+                      <span class="pill-text green-text">Experience</span>
+                    </div>
+
+                    <!-- 3. Responsibilities -->
+                    <div class="floating-pill pill-responsibilities">
+                      <svg class="pill-svg blue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                      </svg>
+                      <span class="pill-text blue-text">Responsibilities</span>
+                    </div>
+
+                    <!-- 4. Qualifications -->
+                    <div class="floating-pill pill-qualifications">
+                      <svg class="pill-svg blue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                      </svg>
+                      <span class="pill-text blue-text">Qualifications</span>
+                    </div>
+                  </div>
+
+                  <!-- AI Analysis badge -->  
+                  <div class="doc-ai-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/>
+                      <circle cx="12" cy="18" r="3"/>
+                      <path d="M12 13v2"/>
+                    </svg>
+                    AI Analysis Ready
+                  </div>
+                </div>
+
+                <!-- Small secondary sparkle -->
+                <div class="sparkle-star-sm">
+                  <svg viewBox="0 0 24 24" fill="#4f46e5"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom 3-Step How-It-Works Feature Cards -->
+          <div class="how-it-works-label">How it works</div>
+          <div class="pipeline-feature-strip">
+            <div class="pipeline-step-item">
+              <div class="pipeline-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="9" y1="15" x2="15" y2="15"/>
+                  <line x1="9" y1="11" x2="15" y2="11"/>
+                </svg>
+              </div>
+              <div class="pipeline-text">
+                <span class="pipeline-step-num">1. Upload</span>
+                <span class="pipeline-step-desc">Add your job description</span>
+              </div>
+            </div>
+
+            <div class="pipeline-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </div>
+
+            <div class="pipeline-step-item">
+              <div class="pipeline-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
+              <div class="pipeline-text">
+                <span class="pipeline-step-num">2. Analyze</span>
+                <span class="pipeline-step-desc">AI extracts key details</span>
+              </div>
+            </div>
+
+            <div class="pipeline-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </div>
+
+            <div class="pipeline-step-item">
+              <div class="pipeline-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 11l3 3L22 4"/>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+              </div>
+              <div class="pipeline-text">
+                <span class="pipeline-step-num">3. Prepare</span>
+                <span class="pipeline-step-desc">Get tailored questions &amp; answers</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 2: PROCESSING SCREEN (ANALYZE / PREP) -->
+        <!-- ============================================== -->
+        <section class="view-screen hidden" id="screen-processing" aria-live="polite">
+          <div class="processing-card card">
+            <div class="processing-icon-bubble">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="processing-glow-icon">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <path d="M12 18v-6"/>
+                <path d="M9 15h6"/>
+              </svg>
+              <div class="sparkle-orbit">&#10022;</div>
+            </div>
+
+            <h2 class="processing-title" id="processing-title">Analyzing Job Description</h2>
+            <p class="processing-subtitle" id="processing-subtitle">
+              Our AI is extracting the key requirements, skills and responsibilities from your job description. This may take a few moments.
+            </p>
+
+            <!-- Checklist Stepper -->
+            <ul class="processing-checklist" id="processing-checklist" role="list">
+              <li class="step-row completed" id="check-step-1">
+                <span class="step-check-icon">&#10003;</span>
+                <span class="step-text" id="check-step-1-text">File uploaded</span>
+              </li>
+              <li class="step-row completed" id="check-step-2">
+                <span class="step-check-icon">&#10003;</span>
+                <span class="step-text" id="check-step-2-text">Extracting job requirements</span>
+              </li>
+              <li class="step-row active" id="check-step-3">
+                <span class="step-spinner"></span>
+                <span class="step-text" id="check-step-3-text">Analyzing requirements</span>
+              </li>
+              <li class="step-row pending" id="check-step-4">
+                <span class="step-bullet"></span>
+                <span class="step-text" id="check-step-4-text">Preparing your interview plan</span>
+              </li>
+            </ul>
+
+            <!-- Progress Bar -->
+            <div class="processing-progress-track">
+              <div class="processing-progress-bar" id="processing-progress-bar"></div>
+            </div>
+            <p class="processing-status-label" id="processing-status-label">Processing...</p>
+
+            <div class="processing-meta-info">
+              <span id="active-job-id" class="visually-hidden">-</span>
+              <span id="active-job-attempts" class="visually-hidden">Attempts: 1</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 3: ANALYSIS RESULT SCREEN -->
+        <!-- ============================================== -->
+        <section class="view-screen hidden" id="screen-analysis" aria-labelledby="analysis-header-title">
+          <div class="subpage-nav-bar">
+            <button type="button" class="btn-link-back" id="btn-back-to-home">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Back to Home
+            </button>
+          </div>
+
+          <div class="section-heading-block">
+            <div class="heading-row-flex">
+              <h1 class="page-title" id="analysis-header-title">Job Description Analysis</h1>
+              <span class="badge badge-success">Analysis Complete</span>
+            </div>
+            <p class="page-subtitle">
+              Here's what we found in your job description. Use this information to focus your mock interview preparation.
+            </p>
+          </div>
+
+          <!-- Role Overview Card -->
+          <div class="card role-overview-card">
+            <div class="role-overview-header">
+              <div class="role-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+              </div>
+              <div class="role-details">
+                <h2 class="role-title" id="role-title">-</h2>
+                <p class="role-company" id="role-company">Company not specified</p>
+              </div>
+              <div class="role-badges-group" id="role-badges">
+                <span class="badge badge-neutral" id="badge-employment">-</span>
+                <span class="badge badge-neutral" id="badge-location">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Skills Section -->
+          <div class="card section-card">
+            <div class="card-section-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="section-header-icon">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <h3>Key Skills</h3>
+            </div>
+            <div class="skills-block">
+              <div class="skills-category-group">
+                <h4 class="skills-category-title">Required Skills</h4>
+                <div class="tags-container" id="required-skills-tags"></div>
+              </div>
+              <div class="skills-category-group" id="preferred-skills-group" style="display: none;">
+                <h4 class="skills-category-title">Preferred Skills</h4>
+                <div class="tags-container" id="preferred-skills-tags"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two-Column Grid: Responsibilities & Experience -->
+          <div class="two-col-grid">
+            <!-- Responsibilities -->
+            <div class="card section-card">
+              <div class="card-section-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="section-header-icon">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                </svg>
+                <h3>Responsibilities</h3>
+              </div>
+              <ul class="readable-bullet-list" id="responsibilities-list"></ul>
+            </div>
+
+            <!-- Experience & Qualifications -->
+            <div class="card section-card">
+              <div class="card-section-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="section-header-icon">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+                <h3>Experience &amp; Qualifications</h3>
+              </div>
+              <ul class="readable-bullet-list" id="experience-qualifications-list"></ul>
+            </div>
+          </div>
+
+          <!-- Main CTA Footer -->
+          <div class="analysis-cta-card">
+            <div class="cta-copy">
+              <h3>Ready to prepare?</h3>
+              <p>Generate mock interview questions based only on the requirements extracted from this job description.</p>
+            </div>
+            <button type="button" id="btn-trigger-prepare" class="btn btn-primary btn-lg">
+              <span>Generate Mock Interview</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow-icon">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 4 & 5: MOCK INTERVIEW PREPARATION RESULTS -->
+        <!-- ============================================== -->
+        <section class="view-screen hidden" id="screen-questions" aria-labelledby="prep-header-title">
+          <div class="subpage-nav-bar">
+            <button type="button" class="btn-link-back" id="btn-back-to-analysis">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Back to Analysis
+            </button>
+          </div>
+
+          <div class="section-heading-block">
+            <div class="heading-row-flex">
+              <h1 class="page-title" id="prep-header-title">Mock Interview Preparation</h1>
+              <span class="badge badge-accent" id="badge-prep-role">-</span>
+            </div>
+            <p class="page-subtitle">
+              Based on the requirements extracted from your job description.
+            </p>
+          </div>
+
+          <!-- Category Filter Tabs -->
+          <div class="category-tabs-row" role="tablist" aria-label="Question Categories">
+            <button type="button" class="cat-pill active" data-cat="all" role="tab" aria-selected="true">All Questions</button>
+            <button type="button" class="cat-pill" data-cat="technical" role="tab" aria-selected="false">Technical</button>
+            <button type="button" class="cat-pill" data-cat="behavioural" role="tab" aria-selected="false">Behavioural</button>
+            <button type="button" class="cat-pill" data-cat="role_specific" role="tab" aria-selected="false">Role Specific</button>
+          </div>
+
+          <!-- Active Question Card -->
+          <div class="card question-card" id="question-card-container">
+            <!-- Injected dynamically by JS -->
+          </div>
+
+          <!-- Question Navigation Bar -->
+          <div class="question-nav-bar">
+            <button type="button" class="btn btn-secondary" id="btn-prev-question" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Previous
+            </button>
+
+            <div class="question-progress-indicator">
+              <span id="question-nav-counter">Question 1 of 5</span>
+              <div class="question-dots" id="question-dots"></div>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="btn-next-question">
+              <span>Next Question</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Secondary Actions -->
+          <div class="prep-secondary-actions">
+            <button type="button" class="btn-link" id="btn-start-again">Start New Preparation</button>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- SCREEN 6: FAILURE / RETRY SCREEN -->
+        <!-- ============================================== -->
+        <section class="view-screen hidden" id="screen-failure" aria-labelledby="failure-title">
+          <div class="card failure-card">
+            <div class="failure-icon-bubble">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+
+            <h2 class="failure-title" id="failure-title">We couldn't analyze this file</h2>
+            <p class="failure-subtitle" id="failure-subtitle">
+              The AI service couldn't produce a reliable result for this file. This might happen if the file is unclear, not a job description, or is in an unsupported format.
+            </p>
+
+            <!-- Suggestion / Tip Box -->
+            <div class="tip-guidance-box">
+              <div class="tip-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="tip-icon">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+                <h4>Try uploading a clearer job description</h4>
+              </div>
+              <ul class="tip-checklist">
+                <li>
+                  <span class="tip-check">&#10003;</span>
+                  <span>Make sure it's a job posting (not a resume or cover letter)</span>
+                </li>
+                <li>
+                  <span class="tip-check">&#10003;</span>
+                  <span>Include the role title and key responsibilities</span>
+                </li>
+                <li>
+                  <span class="tip-check">&#10003;</span>
+                  <span>Use a clear and readable format (PDF or text)</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="failure-actions">
+              <button type="button" id="btn-failure-retry" class="btn btn-primary btn-lg">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-refresh-icon">
+                  <polyline points="23 4 23 10 17 10"/>
+                  <polyline points="1 20 1 14 7 14"/>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+                <span>Try Again</span>
+              </button>
+
+              <button type="button" id="btn-failure-upload-another" class="btn btn-secondary btn-lg">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <span>Upload Another File</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- EXTRA: MY INTERVIEWS VIEW (HISTORY) -->
+        <!-- ============================================== -->
+        <section class="view-screen hidden" id="screen-history" aria-labelledby="history-title">
+          <div class="section-heading-block">
+            <h1 class="page-title" id="history-title">My Preparations</h1>
+            <p class="page-subtitle">View and resume your recent job analyses and mock interview preparations.</p>
+          </div>
+
+          <div class="card history-card">
+            <div id="history-list" class="history-list">
+              <!-- Dynamically populated or empty state -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- EXTRA: SETTINGS VIEW -->
+        <!-- ============================================== -->
+        <section class="view-screen hidden" id="screen-settings" aria-labelledby="settings-title">
+          <div class="section-heading-block">
+            <h1 class="page-title" id="settings-title">Settings</h1>
+            <p class="page-subtitle">Manage your account and preferences.</p>
+          </div>
+
+          <div class="settings-cards-stack">
+            <!-- Profile Card -->
+            <div class="card settings-box">
+              <div class="settings-box-header">
+                <h3 class="settings-box-title">Profile</h3>
+                <p class="settings-box-desc">Your personal information</p>
+              </div>
+              <div class="settings-info-grid">
+                <div class="settings-info-row">
+                  <span class="settings-info-label">Name</span>
+                  <span class="settings-info-value" id="settings-user-name">VOICER Admin</span>
+                </div>
+                <div class="settings-info-row">
+                  <span class="settings-info-label">Email</span>
+                  <span class="settings-info-value" id="settings-user-email">demo@interra.ai</span>
+                </div>
+              </div>
+              <div class="settings-box-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-edit-profile">Edit Profile</button>
+              </div>
+            </div>
+
+            <!-- Preferences Card -->
+            <div class="card settings-box">
+              <div class="settings-box-header">
+                <h3 class="settings-box-title">Preferences</h3>
+              </div>
+              <div class="settings-info-grid">
+                <div class="settings-info-row">
+                  <span class="settings-info-label">Appearance</span>
+                  <div class="settings-select-wrapper">
+                    <select class="settings-select" id="pref-appearance" aria-label="Appearance Preference">
+                      <option value="system" selected>System</option>
+                      <option value="light">Light</option>
+                      <option value="dark">Dark</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="settings-info-row">
+                  <span class="settings-info-label">Language</span>
+                  <div class="settings-select-wrapper">
+                    <select class="settings-select" id="pref-language" aria-label="Language Preference">
+                      <option value="en" selected>English</option>
+                      <option value="es">Spanish</option>
+                      <option value="fr">French</option>
+                      <option value="de">German</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Security Card -->
+            <div class="card settings-box">
+              <div class="settings-box-header">
+                <h3 class="settings-box-title">Security</h3>
+              </div>
+              <div class="settings-security-content">
+                <h4 class="settings-sub-title">Password</h4>
+                <p class="settings-box-desc">Keep your account secure</p>
+              </div>
+              <div class="settings-box-actions">
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-change-password">Change Password</button>
+              </div>
+            </div>
+
+            <!-- Your Plan Card -->
+            <div class="card settings-box">
+              <div class="settings-box-header">
+                <h3 class="settings-box-title">Your Plan</h3>
+              </div>
+              <div class="settings-plan-content">
+                <span class="plan-tag">Free</span>
+                <p class="plan-desc">Explore Interra AI and prepare for your next interview.</p>
+                <p class="plan-note">Premium features coming soon.</p>
+              </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="danger-zone-section">
+              <h3 class="danger-zone-title">Danger Zone</h3>
+              <div class="danger-zone-card">
+                <button type="button" class="btn-danger" id="btn-delete-account">Delete Account</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
